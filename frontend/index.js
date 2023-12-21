@@ -3,8 +3,16 @@ function moduleProject3() {
   // 👉 TASK 1 - Write a `buildNav` component that returns a nav
 
   function buildNav(links) {
-    //  ✨ do your magic here
-    return document.createElement('nav')
+    const navContainer = document.createElement('nav')
+    links.forEach(link => {
+      let a = document.createElement('a')
+      a.href = link.href
+      a.title = link.title 
+      a.textContent = link.textContent
+      navContainer.appendChild(a)
+
+    })
+    return navContainer
   }
 
   // ❗ DOM creation using your `buildNav` component (do not change):
@@ -19,7 +27,32 @@ function moduleProject3() {
   // 👉 TASK 2A - Write a `buildLearnerCard` component that returns a card
 
   function buildLearnerCard(learner, languages) {
-    //  ✨ do your magic here
+    const card = document.createElement('div')
+    
+
+    card.classList.add('learner-card')
+
+    const nameP = document.createElement('p')
+    nameP.textContent = learner.fullName
+
+    const idElement = document.createElement('p')
+    idElement.textContent = `Learner ID: ${learner.id}`
+
+    const dobP = document.createElement('p')
+    dobP.textContent = `Date of Birth: ${learner.dateOfBirth}`
+
+    const langP = document.createElement('p')
+    const faveLang = languages.find(lang => lang.id === learner.favLanguage)
+    langP.textContent = `Fave Language: ${faveLang.name}`;
+
+   [nameP, idElement, dobP, langP].forEach(p => {
+    card.appendChild(p)
+   })
+   
+   card.addEventListener('click', evt => {
+    document.querySelectorAll('.learner-card')
+   })
+    return card
   }
 
   {
@@ -39,15 +72,17 @@ function moduleProject3() {
       { id: 41, fullName: 'Sabah Beydoun', dateOfBirth: '1988-03-25', favLanguage: 91 },
       { id: 17, fullName: 'Daniel Castillo', dateOfBirth: '1995-11-05', favLanguage: 12 }
     ]
-    //  ✨ do your magic here
+    learners.forEach(learner => {
+    const learnerCard = buildLearnerCard(learner, languages)
+    document.querySelector('section').appendChild(learnerCard)
+    })
   }
 
   // 👉 TASK 3 - Write a `buildFooter` component that returns a footer
 
   function buildFooter(footerData) {
     //  ✨ do your magic here
-    return document.createElement('footer')
-  }
+  
 
   // ❗ DOM creation using your `buildFooter` component (do not change):
   document.body.appendChild(buildFooter({
